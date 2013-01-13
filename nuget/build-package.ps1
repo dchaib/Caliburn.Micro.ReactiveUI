@@ -1,0 +1,1 @@
+..\src\.nuget\NuGet.exe pack .\package\caliburn.micro.reactiveui.nuspec

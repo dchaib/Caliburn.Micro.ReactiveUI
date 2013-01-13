@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Caliburn.Micro.ReactiveUI</id>
+        <version>0.4.1</version>
+        <title>Caliburn.Micro.ReactiveUI</title>
+        <authors>Damien</authors>
+        <owners />
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>My package description.</description>
+        <dependencies>
+            <group targetFramework=".NETFramework4.0">
+                <dependency id="reactiveui-core" version="4.1.0" />
+                <dependency id="Caliburn.Micro" version="1.4" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\..\src\Caliburn.Micro.ReactiveUI\bin\Release\Caliburn.Micro.ReactiveUI.dll" target="lib\net40\Caliburn.Micro.ReactiveUI.dll" />
+    </files>
+</package>
