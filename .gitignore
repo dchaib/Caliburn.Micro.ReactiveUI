@@ -116,6 +116,10 @@ UpgradeLog*.XML
 
 packages
 
+*.ncrunchsolution
+*.DotSettings
+
+
 ############
 ## Windows
 ############
