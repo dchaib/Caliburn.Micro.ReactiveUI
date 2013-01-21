@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Caliburn.Micro.ReactiveUI</id>
-        <version>1.1.0</version>
+        <version>1.1.0-pre</version>
 		<title>Caliburn.Micro.ReactiveUI</title>
 		<authors>Damien Chaib</authors>
 		<owners>Damien Chaib</owners>
