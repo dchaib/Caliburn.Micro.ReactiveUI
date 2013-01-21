@@ -116,6 +116,13 @@ UpgradeLog*.XML
 
 packages
 
+*.ncrunchsolution
+*.DotSettings
+
+# WinRT application containers
+AppPackages
+
+
 ############
 ## Windows
 ############
