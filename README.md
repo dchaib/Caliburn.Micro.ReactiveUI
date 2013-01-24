@@ -1,6 +1,6 @@
 # Caliburn.Micro.ReactiveUI
 
-## What it is?
+## What is it?
 
 The goal of this project is to allow better integration of 2 existing MVVM libraries: [Caliburn.Micro](http://caliburnmicro.codeplex.com/) and [ReactiveUI](http://www.reactiveui.net/).
 
