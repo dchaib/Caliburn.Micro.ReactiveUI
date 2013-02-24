@@ -12,7 +12,7 @@ The project contains the default screens and conductors provided by Caliburn.Mic
 
 ## What does it support?
 
-For now, this only supports the latest versions of Caliburn.Micro (1.4) and ReactiveUI (4.3.0), for .Net 4.5.
+For now, this only supports the latest versions of Caliburn.Micro (1.4) and ReactiveUI (4.3.0), for .Net 4.5, WinRT and Silverlight 5.
 
 ## Where can it be found?
 
