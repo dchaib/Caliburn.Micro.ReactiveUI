@@ -10,7 +10,7 @@ namespace Caliburn.Micro.ReactiveUI
     /// A base class for various implementations of <see cref="IConductor"/>.
     /// </summary>
     /// <typeparam name="T">The type that is being conducted.</typeparam>
-    public abstract class ReactiveConductorBase<T> : ReactiveScreen, IConductor, IParent<T>
+    public abstract class ReactiveConductorBase<T> : ReactiveScreen, IConductor, IParent<T> where T : class
     {
         ICloseStrategy<T> closeStrategy;
 
