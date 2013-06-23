@@ -30,7 +30,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// <summary>
         ///   Gets or Sets the Parent <see cref = "IConductor" />
         /// </summary>
-        public virtual object Parent
+        public object Parent
         {
             get { return parent; }
             set
@@ -42,7 +42,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// <summary>
         ///   Gets or Sets the Display Name
         /// </summary>
-        public virtual string DisplayName
+        public string DisplayName
         {
             get { return displayName; }
             set
@@ -166,30 +166,6 @@ namespace Caliburn.Micro.ReactiveUI
             callback(true);
         }
 
-#if WinRT
-        System.Action GetViewCloseAction(bool? dialogResult) {
-            var conductor = Parent as IConductor;
-            if (conductor != null) {
-                return () => conductor.CloseItem(this);
-            }
-
-            foreach (var contextualView in Views.Values) {
-                var viewType = contextualView.GetType();
-
-                var closeMethod = viewType.GetRuntimeMethod("Close", new Type[0]);
-                if (closeMethod != null) {
-                    return () => { closeMethod.Invoke(contextualView, null); };
-                }
-
-                var isOpenProperty = viewType.GetRuntimeProperty("IsOpen");
-                if (isOpenProperty != null) {
-                    return () => isOpenProperty.SetValue(contextualView, false, null);
-                }
-            }
-
-            return () => Log.Info("TryClose requires a parent IConductor or a view with a Close method or IsOpen property.");
-        }
-#else
         System.Action GetViewCloseAction(bool? dialogResult)
         {
             var conductor = Parent as IConductor;
@@ -201,12 +177,15 @@ namespace Caliburn.Micro.ReactiveUI
             foreach (var contextualView in Views.Values)
             {
                 var viewType = contextualView.GetType();
-
+#if WinRT
+                var closeMethod = viewType.GetRuntimeMethod("Close", new Type[0]);
+#else
                 var closeMethod = viewType.GetMethod("Close");
+#endif
                 if (closeMethod != null)
                     return () =>
                     {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !WinRT
                         var isClosed = false;
                         if (dialogResult != null)
                         {
@@ -227,7 +206,11 @@ namespace Caliburn.Micro.ReactiveUI
 #endif
                     };
 
+#if WinRT
+                var isOpenProperty = viewType.GetRuntimeProperty("IsOpen");
+#else
                 var isOpenProperty = viewType.GetProperty("IsOpen");
+#endif
                 if (isOpenProperty != null)
                 {
                     return () => isOpenProperty.SetValue(contextualView, false, null);
@@ -236,22 +219,16 @@ namespace Caliburn.Micro.ReactiveUI
 
             return () => Log.Info("TryClose requires a parent IConductor or a view with a Close method or IsOpen property.");
         }
-#endif
 
         /// <summary>
         ///   Tries to close this instance by asking its Parent to initiate shutdown or by asking its corresponding view to close.
         /// </summary>
         public void TryClose()
         {
-            Execute.OnUIThread(() =>
-            {
-                var closeAction = GetViewCloseAction(null);
-                closeAction();
-            });
+            GetViewCloseAction(null).OnUIThread();
         }
 
 #if !SILVERLIGHT
-
         /// <summary>
         /// Closes this instance by asking its Parent to initiate shutdown or by asking it's corresponding view to close.
         /// This overload also provides an opportunity to pass a dialog result to it's corresponding view.
@@ -259,14 +236,8 @@ namespace Caliburn.Micro.ReactiveUI
         /// <param name="dialogResult">The dialog result.</param>
         public virtual void TryClose(bool? dialogResult)
         {
-            Execute.OnUIThread(() =>
-            {
-                var closeAction = GetViewCloseAction(dialogResult);
-                closeAction();
-            });
+            GetViewCloseAction(dialogResult).OnUIThread();
         }
-
 #endif
     }
 }
-
