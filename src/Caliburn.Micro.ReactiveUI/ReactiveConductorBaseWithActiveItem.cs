@@ -9,7 +9,7 @@ namespace Caliburn.Micro.ReactiveUI
     /// A base class for various implementations of <see cref="IConductor"/> that maintain an active item.
     /// </summary>
     /// <typeparam name="T">The type that is being conducted.</typeparam>
-    public abstract class ReactiveConductorBaseWithActiveItem<T> : ReactiveConductorBase<T>, IConductActiveItem
+    public abstract class ReactiveConductorBaseWithActiveItem<T> : ReactiveConductorBase<T>, IConductActiveItem where T : class
     {
         T activeItem;
 

@@ -8,7 +8,7 @@ namespace Caliburn.Micro.ReactiveUI
     /// <summary>
     /// An implementation of <see cref="IConductor"/> that holds on to and activates only one item at a time.
     /// </summary>
-    public partial class ReactiveConductor<T> : ReactiveConductorBaseWithActiveItem<T>
+    public partial class ReactiveConductor<T> : ReactiveConductorBaseWithActiveItem<T> where T : class
     {
         /// <summary>
         /// Activates the specified item.
