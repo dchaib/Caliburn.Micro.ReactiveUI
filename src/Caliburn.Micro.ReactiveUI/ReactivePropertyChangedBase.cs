@@ -5,25 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace Caliburn.Micro.ReactiveUI
 {
     public class ReactivePropertyChangedBase : ReactiveObject, INotifyPropertyChangedEx
     {
+#if !WinRT
+        [Browsable(false)]
+#endif
         public bool IsNotifying
         {
-            get;
-            set;
-        }
-
-        /// <summary>
-        ///   Notifies subscribers of the property change.
-        /// </summary>
-        /// <typeparam name = "TProperty">The type of the property.</typeparam>
-        /// <param name = "property">The property expression.</param>
-        public virtual void NotifyOfPropertyChange<TProperty>(Expression<Func<TProperty>> property)
-        {
-            raisePropertyChanged(property.GetMemberInfo().Name);
+            get { return areChangeNotificationsEnabled; }
+            set { throw new NotSupportedException(); }
         }
 
         /// <summary>
@@ -41,7 +35,7 @@ namespace Caliburn.Micro.ReactiveUI
 
         public void Refresh()
         {
-            raisePropertyChanged(string.Empty);
+            NotifyOfPropertyChange(string.Empty);
         }        
     }
 }
