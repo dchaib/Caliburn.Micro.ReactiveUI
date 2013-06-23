@@ -17,8 +17,8 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="..\..\src\Caliburn.Micro.ReactiveUI\bin\net45\Release\Caliburn.Micro.ReactiveUI.dll" target="lib\net45\Caliburn.Micro.ReactiveUI.dll" />
-        <file src="..\..\src\Caliburn.Micro.ReactiveUI\bin\NetCore45\Release\Caliburn.Micro.ReactiveUI.dll" target="lib\NetCore45\Caliburn.Micro.ReactiveUI.dll" />
+        <file src="..\..\src\Caliburn.Micro.ReactiveUI\bin\Release\Caliburn.Micro.ReactiveUI.dll" target="lib\net45\Caliburn.Micro.ReactiveUI.dll" />
+        <file src="..\..\src\Caliburn.Micro.ReactiveUI_WinRT\bin\Release\Caliburn.Micro.ReactiveUI.dll" target="lib\NetCore45\Caliburn.Micro.ReactiveUI.dll" />
         <file src="..\..\src\Caliburn.Micro.ReactiveUI_SL\Bin\Release\Caliburn.Micro.ReactiveUI.dll" target="lib\sl50\Caliburn.Micro.ReactiveUI.dll" />
     </files>
 </package>
