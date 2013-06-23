@@ -21,7 +21,17 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Notifies subscribers of the property change.
+        /// Notifies subscribers of the property change.
+        /// </summary>
+        /// <typeparam name = "TProperty">The type of the property.</typeparam>
+        /// <param name = "property">The property expression.</param>
+        public virtual void NotifyOfPropertyChange<TProperty>(Expression<Func<TProperty>> property)
+        {
+            NotifyOfPropertyChange(property.GetMemberInfo().Name);
+        }
+
+        /// <summary>
+        /// Notifies subscribers of the property change.
         /// </summary>
         /// <param name = "propertyName">Name of the property.</param>
 #if WinRT || NET45
@@ -36,6 +46,6 @@ namespace Caliburn.Micro.ReactiveUI
         public void Refresh()
         {
             NotifyOfPropertyChange(string.Empty);
-        }        
+        }
     }
 }
