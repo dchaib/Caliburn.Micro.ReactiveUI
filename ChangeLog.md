@@ -1,3 +1,6 @@
+#1.2.1
+Updated to Caliburn.Micro 1.5.2 and ReactiveUI 4.6.4
+
 #1.2.0
 Added support for Silverlight 5
 
