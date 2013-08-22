@@ -35,7 +35,7 @@ namespace Caliburn.Micro.ReactiveUI
             get { return parent; }
             set
             {
-                this.RaiseAndSetIfChanged(x => x.Parent, ref parent, value);
+                this.RaiseAndSetIfChanged(ref parent, value);
             }
         }
 
@@ -47,7 +47,7 @@ namespace Caliburn.Micro.ReactiveUI
             get { return displayName; }
             set
             {
-                this.RaiseAndSetIfChanged(x => x.DisplayName, ref displayName, value);
+                this.RaiseAndSetIfChanged(ref displayName, value);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Caliburn.Micro.ReactiveUI
             get { return isActive; }
             private set
             {
-                this.RaiseAndSetIfChanged(x => x.IsActive, ref isActive, value);
+                this.RaiseAndSetIfChanged(ref isActive, value);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Caliburn.Micro.ReactiveUI
             get { return isInitialized; }
             private set
             {
-                this.RaiseAndSetIfChanged(x => x.IsInitialized, ref isInitialized, value);
+                this.RaiseAndSetIfChanged(ref isInitialized, value);
             }
         }
 
