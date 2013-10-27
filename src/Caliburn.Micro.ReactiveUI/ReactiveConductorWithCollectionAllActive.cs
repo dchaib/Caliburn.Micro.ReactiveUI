@@ -17,7 +17,7 @@ namespace Caliburn.Micro.ReactiveUI
             /// <summary>
             /// An implementation of <see cref="IConductor"/> that holds on to many items wich are all activated.
             /// </summary>
-            public class AllActive : ConductorBase<T>
+            public class AllActive : ReactiveConductorBase<T>
             {
                 readonly BindableCollection<T> items = new BindableCollection<T>();
                 readonly bool openPublicItems;
