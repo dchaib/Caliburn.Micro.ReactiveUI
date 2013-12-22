@@ -136,12 +136,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Caliburn.Micro.ReactiveUI_WinRT\Caliburn.Micro.ReactiveUI_WinRT.csproj">
-      <Project>{13faf6fe-50b3-4626-9466-3f0f3dcbbee0}</Project>
-      <Name>Caliburn.Micro.ReactiveUI_WinRT</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
