@@ -112,8 +112,8 @@ namespace Caliburn.Micro.ReactiveUI
                 {
                     if (openPublicItems)
                     {
-                        GetType().GetProperties()
-                            .Where(x => x.Name != "Parent" && typeof(T).IsAssignableFrom(x.PropertyType))
+                        GetType().GetRuntimeProperties()
+                            .Where(x => x.Name != "Parent" && typeof(T).GetTypeInfo().IsAssignableFrom(x.PropertyType.GetTypeInfo()))
                             .Select(x => x.GetValue(this, null))
                             .Cast<T>()
                             .Apply(ActivateItem);
