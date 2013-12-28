@@ -13,7 +13,8 @@ The project contains the default screens and conductors provided by Caliburn.Mic
 ## What does it support?
 
 It supports the latest versions of Caliburn.Micro (starting with v1.4) and ReactiveUI (starting with v4.3.0), for .Net 4.5, WinRT and Silverlight 5.
-Since Caliburn.Micro is moving to a Portable Class Library with version 2.0, Caliburn.Micro.ReactiveUI will also be bundled as a PCL. The next version will support the framework supported by both Caliburn.Micro and ReactiveUI, namely .Net 4.5, Windows store apps (for Windows 8 and higher) and Windows Phone 8. In other words, support for Silverlight 5 will stop at the version 1.2.2.
+
+Since Caliburn.Micro is moving to a Portable Class Library with version 2.0 (currently in alpha2), Caliburn.Micro.ReactiveUI will also be bundled as a PCL. The next version will support the framework supported by both Caliburn.Micro and ReactiveUI, namely **.Net 4.5, Windows store apps (for Windows 8 and higher) and Windows Phone 8**. In other words, support for Silverlight 5 will stop at version 1.2.2.
 
 ## Where can it be found?
 
