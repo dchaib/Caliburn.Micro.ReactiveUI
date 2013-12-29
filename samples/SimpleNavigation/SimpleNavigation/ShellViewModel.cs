@@ -1,8 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using Caliburn.Micro.ReactiveUI;
 
 namespace SimpleNavigation
 {
-    public class ShellViewModel : Conductor<object>
+    public class ShellViewModel : ReactiveConductor<object>
     {
         public ShellViewModel()
         {
