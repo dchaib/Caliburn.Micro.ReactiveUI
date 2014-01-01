@@ -1,9 +1,5 @@
-﻿using System.Reflection;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Caliburn.Micro.ReactiveUI
 {
@@ -30,7 +26,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// <summary>
         ///   Gets or Sets the Parent <see cref = "IConductor" />
         /// </summary>
-        public object Parent
+        public virtual object Parent
         {
             get { return parent; }
             set
@@ -42,7 +38,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// <summary>
         ///   Gets or Sets the Display Name
         /// </summary>
-        public string DisplayName
+        public virtual string DisplayName
         {
             get { return displayName; }
             set
@@ -166,78 +162,14 @@ namespace Caliburn.Micro.ReactiveUI
             callback(true);
         }
 
-        System.Action GetViewCloseAction(bool? dialogResult)
-        {
-            var conductor = Parent as IConductor;
-            if (conductor != null)
-            {
-                return () => conductor.CloseItem(this);
-            }
-
-            foreach (var contextualView in Views.Values)
-            {
-                var viewType = contextualView.GetType();
-#if WinRT
-                var closeMethod = viewType.GetRuntimeMethod("Close", new Type[0]);
-#else
-                var closeMethod = viewType.GetMethod("Close");
-#endif
-                if (closeMethod != null)
-                    return () =>
-                    {
-#if !SILVERLIGHT && !WinRT
-                        var isClosed = false;
-                        if (dialogResult != null)
-                        {
-                            var resultProperty = contextualView.GetType().GetProperty("DialogResult");
-                            if (resultProperty != null)
-                            {
-                                resultProperty.SetValue(contextualView, dialogResult, null);
-                                isClosed = true;
-                            }
-                        }
-
-                        if (!isClosed)
-                        {
-                            closeMethod.Invoke(contextualView, null);
-                        }
-#else
-                        closeMethod.Invoke(contextualView, null);
-#endif
-                    };
-
-#if WinRT
-                var isOpenProperty = viewType.GetRuntimeProperty("IsOpen");
-#else
-                var isOpenProperty = viewType.GetProperty("IsOpen");
-#endif
-                if (isOpenProperty != null)
-                {
-                    return () => isOpenProperty.SetValue(contextualView, false, null);
-                }
-            }
-
-            return () => Log.Info("TryClose requires a parent IConductor or a view with a Close method or IsOpen property.");
-        }
-
         /// <summary>
-        ///   Tries to close this instance by asking its Parent to initiate shutdown or by asking its corresponding view to close.
-        /// </summary>
-        public void TryClose()
-        {
-            GetViewCloseAction(null).OnUIThread();
-        }
-
-#if !SILVERLIGHT
-        /// <summary>
-        /// Closes this instance by asking its Parent to initiate shutdown or by asking it's corresponding view to close.
-        /// This overload also provides an opportunity to pass a dialog result to it's corresponding view.
+        /// Tries to close this instance by asking its Parent to initiate shutdown or by asking its corresponding view to close.
+        /// Also provides an opportunity to pass a dialog result to it's corresponding view.
         /// </summary>
         /// <param name="dialogResult">The dialog result.</param>
-        public virtual void TryClose(bool? dialogResult)
+        public virtual void TryClose(bool? dialogResult = null)
         {
-            GetViewCloseAction(dialogResult).OnUIThread();
+            PlatformProvider.Current.GetViewCloseAction(this, Views.Values, dialogResult).OnUIThread();
         }
-#endif
     }
 }

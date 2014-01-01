@@ -93,7 +93,7 @@ namespace Caliburn.Micro.ReactiveUI
                 /// <param name="callback">The implementor calls this action with the result of the close check.</param>
                 public override void CanClose(Action<bool> callback)
                 {
-                    CloseStrategy.Execute(items, (canClose, closable) =>
+                    CloseStrategy.Execute(items.ToList(), (canClose, closable) =>
                     {
                         if (!canClose && closable.Any())
                         {
@@ -105,7 +105,6 @@ namespace Caliburn.Micro.ReactiveUI
                     });
                 }
 
-#if WinRT
                 /// <summary>
                 /// Called when initializing.
                 /// </summary>
@@ -120,22 +119,6 @@ namespace Caliburn.Micro.ReactiveUI
                             .Apply(ActivateItem);
                     }
                 }
-#else
-                /// <summary>
-                /// Called when initializing.
-                /// </summary>
-                protected override void OnInitialize()
-                {
-                    if (openPublicItems)
-                    {
-                        GetType().GetProperties()
-                            .Where(x => x.Name != "Parent" && typeof(T).IsAssignableFrom(x.PropertyType))
-                            .Select(x => x.GetValue(this, null))
-                            .Cast<T>()
-                            .Apply(ActivateItem);
-                    }
-                }
-#endif
 
                 /// <summary>
                 /// Activates the specified item.

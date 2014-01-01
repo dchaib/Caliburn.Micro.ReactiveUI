@@ -12,7 +12,7 @@ $sln = Join-Path (Get-ScriptDirectory) ..\src\Caliburn.Micro.ReactiveUI.sln
 
 # package it up
 
-$nuget = Join-Path (Get-ScriptDirectory) ..\src\.nuget\NuGet.exe
+$nuget = ".\NuGet.exe"
 $nuspec = Join-Path (Get-ScriptDirectory) .\package\caliburn.micro.reactiveui.nuspec
 
 . $nuget pack $nuspec
