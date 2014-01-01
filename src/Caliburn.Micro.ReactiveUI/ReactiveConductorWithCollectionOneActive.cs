@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 
 namespace Caliburn.Micro.ReactiveUI
 {
@@ -14,7 +13,7 @@ namespace Caliburn.Micro.ReactiveUI
         public partial class Collection
         {
             /// <summary>
-            /// An implementation of <see cref="IConductor"/> that holds on many items but only activates on at a time.
+            /// An implementation of <see cref="IConductor"/> that holds on many items but only activates one at a time.
             /// </summary>
             public class OneActive : ReactiveConductorBaseWithActiveItem<T>
             {
@@ -158,7 +157,7 @@ namespace Caliburn.Micro.ReactiveUI
                 /// <param name="callback">The implementor calls this action with the result of the close check.</param>
                 public override void CanClose(Action<bool> callback)
                 {
-                    CloseStrategy.Execute(items, (canClose, closable) =>
+                    CloseStrategy.Execute(items.ToList(), (canClose, closable) =>
                     {
                         if (!canClose && closable.Any())
                         {

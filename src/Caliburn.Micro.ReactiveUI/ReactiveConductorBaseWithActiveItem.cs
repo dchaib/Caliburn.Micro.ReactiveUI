@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Caliburn.Micro.ReactiveUI
+﻿namespace Caliburn.Micro.ReactiveUI
 {
     /// <summary>
     /// A base class for various implementations of <see cref="IConductor"/> that maintain an active item.
@@ -47,7 +42,7 @@ namespace Caliburn.Micro.ReactiveUI
                 ScreenExtensions.TryActivate(newItem);
 
             activeItem = newItem;
-            raisePropertyChanged("ActiveItem");
+            NotifyOfPropertyChange("ActiveItem");
             OnActivationProcessed(activeItem, true);
         }
     }
