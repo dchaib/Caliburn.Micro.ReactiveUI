@@ -12,7 +12,7 @@
         <dependencies>
             <group>
                 <dependency id="reactiveui-core" version="5.2.0" />
-                <dependency id="Caliburn.Micro" version="2.0.0-alpha2" />
+                <dependency id="Caliburn.Micro.Core" version="2.0.0-alpha2" />
             </group>
         </dependencies>
     </metadata>
