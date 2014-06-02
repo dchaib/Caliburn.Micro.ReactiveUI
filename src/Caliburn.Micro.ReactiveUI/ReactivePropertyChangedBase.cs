@@ -31,7 +31,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// Notifies subscribers of the property change.
         /// </summary>
         /// <param name = "propertyName">Name of the property.</param>
-        public virtual void NotifyOfPropertyChange(string propertyName)
+        public virtual void NotifyOfPropertyChange([CallerMemberName] string propertyName = null)
         {
             raisePropertyChanged(propertyName);
         }
