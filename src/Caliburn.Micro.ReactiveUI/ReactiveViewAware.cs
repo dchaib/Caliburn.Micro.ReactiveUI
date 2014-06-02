@@ -9,7 +9,7 @@ namespace Caliburn.Micro.ReactiveUI
     ///</summary>
     public class ReactiveViewAware : ReactivePropertyChangedBase, IViewAware
     {
-        private bool cacheViews;
+        readonly IDictionary<object, object> views;
 
         /// <summary>
         /// The default view context.
@@ -17,12 +17,7 @@ namespace Caliburn.Micro.ReactiveUI
         public static readonly object DefaultContext = new object();
 
         /// <summary>
-        /// Indicates whether or not implementors of <see cref="IViewAware"/> should cache their views by default.
-        /// </summary>
-        public static bool CacheViewsByDefault = true;
-
-        /// <summary>
-        ///   The view chache for this instance.
+        /// The view cache for this instance.
         /// </summary>
         protected readonly IDictionary<object, object> Views = new Dictionary<object, object>();
 
@@ -30,15 +25,8 @@ namespace Caliburn.Micro.ReactiveUI
         /// Creates an instance of <see cref="ReactiveViewAware"/>.
         ///</summary>
         public ReactiveViewAware()
-            : this(CacheViewsByDefault) { }
-
-        ///<summary>
-        /// Creates an instance of <see cref="ReactiveViewAware"/>.
-        ///</summary>
-        ///<param name="cacheViews">Indicates whether or not this instance maintains a view cache.</param>
-        public ReactiveViewAware(bool cacheViews)
         {
-            CacheViews = cacheViews;
+            views = new WeakValueDictionary<object, object>();
         }
 
         /// <summary>
@@ -46,26 +34,9 @@ namespace Caliburn.Micro.ReactiveUI
         /// </summary>
         public event EventHandler<ViewAttachedEventArgs> ViewAttached = delegate { };
 
-        ///<summary>
-        ///  Indicates whether or not this instance maintains a view cache.
-        ///</summary>
-        protected bool CacheViews
-        {
-            get { return cacheViews; }
-            set
-            {
-                cacheViews = value;
-                if (!cacheViews)
-                    Views.Clear();
-            }
-        }
-
         void IViewAware.AttachView(object view, object context)
         {
-            if (CacheViews)
-            {
-                Views[context ?? DefaultContext] = view;
-            }
+            Views[context ?? DefaultContext] = view;
 
             var nonGeneratedView = PlatformProvider.Current.GetFirstNonGeneratedView(view);
             PlatformProvider.Current.ExecuteOnFirstLoad(nonGeneratedView, OnViewLoaded);
