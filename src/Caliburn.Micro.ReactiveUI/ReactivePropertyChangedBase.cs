@@ -13,7 +13,7 @@ namespace Caliburn.Micro.ReactiveUI
     {
         public bool IsNotifying
         {
-            get { return areChangeNotificationsEnabled; }
+            get { return AreChangeNotificationsEnabled(); }
             set { throw new NotSupportedException(); }
         }
 
@@ -33,7 +33,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// <param name = "propertyName">Name of the property.</param>
         public virtual void NotifyOfPropertyChange([CallerMemberName] string propertyName = null)
         {
-            raisePropertyChanged(propertyName);
+            this.RaisePropertyChanged(propertyName);
         }
 
         public void Refresh()
