@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using ReactiveUI;
 
 namespace Caliburn.Micro.ReactiveUI
 {
@@ -19,7 +19,7 @@ namespace Caliburn.Micro.ReactiveUI
             /// </summary>
             public class AllActive : ReactiveConductorBase<T>
             {
-                readonly BindableCollection<T> items = new BindableCollection<T>();
+                readonly ReactiveList<T> items = new ReactiveList<T>();
                 readonly bool openPublicItems;
 
                 /// <summary>
@@ -61,7 +61,7 @@ namespace Caliburn.Micro.ReactiveUI
                 /// <summary>
                 /// Gets the items that are currently being conducted.
                 /// </summary>
-                public IObservableCollection<T> Items
+                public IReactiveList<T> Items
                 {
                     get { return items; }
                 }
@@ -98,7 +98,7 @@ namespace Caliburn.Micro.ReactiveUI
                         if (!canClose && closable.Any())
                         {
                             closable.OfType<IDeactivate>().Apply(x => x.Deactivate(true));
-                            items.RemoveRange(closable);
+                            items.RemoveAll(closable);
                         }
 
                         callback(canClose);
