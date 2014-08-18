@@ -3,10 +3,11 @@
     <metadata>
         <id>Caliburn.Micro.ReactiveUI</id>
         <version>2.1.0</version>
-		<title>Caliburn.Micro.ReactiveUI</title>
-		<authors>Damien Chaib</authors>
-		<owners>Damien Chaib</owners>
-		<projectUrl>https://github.com/dchaib/Caliburn.Micro.ReactiveUI</projectUrl>
+	<title>Caliburn.Micro.ReactiveUI</title>
+	<authors>Damien Chaib</authors>
+	<owners>Damien Chaib</owners>
+    	<licenseUrl>https://github.com/dchaib/Caliburn.Micro.ReactiveUI/blob/master/LICENCE.md</licenseUrl>
+	<projectUrl>https://github.com/dchaib/Caliburn.Micro.ReactiveUI</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>This library provides Caliburn.Micro screens and conductors rewritten to inherit from ReactiveUI ReactiveObject</description>
         <dependencies>
