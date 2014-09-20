@@ -17,7 +17,7 @@ namespace Caliburn.Micro.ReactiveUI
             /// </summary>
             public class OneActive : ReactiveConductorBaseWithActiveItem<T>
             {
-                readonly BindableCollection<T> items = new BindableCollection<T>();
+                readonly ReactiveObservableCollection<T> items = new ReactiveObservableCollection<T>();
 
                 /// <summary>
                 /// Initializes a new instance of the <see cref="Conductor&lt;T&gt;.Collection.OneActive"/> class.

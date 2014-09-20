@@ -19,7 +19,7 @@ namespace Caliburn.Micro.ReactiveUI
             /// </summary>
             public class AllActive : ReactiveConductorBase<T>
             {
-                readonly BindableCollection<T> items = new BindableCollection<T>();
+                readonly ReactiveObservableCollection<T> items = new ReactiveObservableCollection<T>();
                 readonly bool openPublicItems;
 
                 /// <summary>
