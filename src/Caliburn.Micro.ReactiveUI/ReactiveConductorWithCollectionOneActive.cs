@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -51,6 +52,14 @@ namespace Caliburn.Micro.ReactiveUI
                 public IObservableCollection<T> Items
                 {
                     get { return items; }
+                }
+
+                /// <summary>
+                /// Gets the items that are currently being conducted as a ReactiveList.
+                /// </summary>
+                public ReactiveList<T> ReactiveItems
+                {
+                    get { return items as ReactiveList<T>; }
                 }
 
                 /// <summary>
