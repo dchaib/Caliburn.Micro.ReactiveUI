@@ -43,6 +43,7 @@
     <Compile Include="ReactiveConductorBaseWithActiveItem.cs" />
     <Compile Include="ReactiveConductorWithCollectionAllActive.cs" />
     <Compile Include="ReactiveConductorWithCollectionOneActive.cs" />
+    <Compile Include="ReactiveObservableCollection.cs" />
     <Compile Include="ReactivePropertyChangedBase.cs" />
     <Compile Include="ReactiveScreen.cs" />
     <Compile Include="ReactiveViewAware.cs" />
