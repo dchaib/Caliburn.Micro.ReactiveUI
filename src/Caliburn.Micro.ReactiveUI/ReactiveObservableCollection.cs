@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System.Reactive.Concurrency;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,21 @@ namespace Caliburn.Micro.ReactiveUI
     public class ReactiveObservableCollection<T> : ReactiveList<T>, IObservableCollection<T>
     {
         public bool IsNotifying { get; set; }
+
+        public ReactiveObservableCollection()
+            : base()
+        {
+        }
+
+        public ReactiveObservableCollection(IEnumerable<T> initialContents)
+            : base(initialContents)
+        {
+        }
+
+        public ReactiveObservableCollection(IEnumerable<T> initialContents = null, double resetChangeThreshold = 0.3, IScheduler scheduler = null)
+            : base(initialContents, resetChangeThreshold, scheduler)
+        {
+        }
 
         /// <summary>
         /// Notifies subscribers of the property change.
