@@ -42,7 +42,7 @@ namespace Caliburn.Micro.ReactiveUI
         /// <summary>
         /// Occurs when an activation request is processed.
         /// </summary>
-        public event EventHandler<ActivationProcessedEventArgs> ActivationProcessed = delegate { };
+        public virtual event EventHandler<ActivationProcessedEventArgs> ActivationProcessed = delegate { };
 
         /// <summary>
         /// Gets the children.
@@ -75,17 +75,21 @@ namespace Caliburn.Micro.ReactiveUI
                 return;
             }
 
-            ActivationProcessed(this, new ActivationProcessedEventArgs
+            var handler = ActivationProcessed;
+            if (handler != null)
             {
-                Item = item,
-                Success = success
-            });
+                handler(this, new ActivationProcessedEventArgs
+                {
+                    Item = item,
+                    Success = success
+                });
+            }
         }
 
         /// <summary>
         /// Ensures that an item is ready to be activated.
         /// </summary>
-        /// <param name="newItem"></param>
+        /// <param name="newItem">The item that is about to be activated.</param>
         /// <returns>The item to be activated.</returns>
         protected virtual T EnsureItem(T newItem)
         {

@@ -4,7 +4,7 @@ using System;
 namespace Caliburn.Micro.ReactiveUI
 {
     /// <summary>
-    ///   A base implementation of <see cref = "IScreen" />.
+    /// A base implementation of <see cref = "IScreen" />.
     /// </summary>
     public class ReactiveScreen : ReactiveViewAware, IScreen, IChild
     {
@@ -16,7 +16,7 @@ namespace Caliburn.Micro.ReactiveUI
         string displayName;
 
         /// <summary>
-        ///   Creates an instance of <see cref="ReactiveScreen"/>.
+        /// Creates an instance of <see cref="ReactiveScreen"/>.
         /// </summary>
         public ReactiveScreen()
         {
@@ -24,7 +24,7 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Gets or Sets the Parent <see cref = "IConductor" />
+        /// Gets or Sets the Parent <see cref = "IConductor" />.
         /// </summary>
         public virtual object Parent
         {
@@ -36,7 +36,7 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Gets or Sets the Display Name
+        /// Gets or Sets the Display Name.
         /// </summary>
         public virtual string DisplayName
         {
@@ -48,9 +48,10 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Indicates whether or not this instance is currently active.
+        /// Indicates whether or not this instance is currently active.
+        /// Virtualized in order to help with document oriented view models.
         /// </summary>
-        public bool IsActive
+        public virtual bool IsActive
         {
             get { return isActive; }
             private set
@@ -60,9 +61,10 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Indicates whether or not this instance is currently initialized.
+        /// Indicates whether or not this instance is currently initialized.
+        /// Virtualized in order to help with document oriented view models.
         /// </summary>
-        public bool IsInitialized
+        public virtual bool IsInitialized
         {
             get { return isInitialized; }
             private set
@@ -72,19 +74,19 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Raised after activation occurs.
+        /// Raised after activation occurs.
         /// </summary>
-        public event EventHandler<ActivationEventArgs> Activated = delegate { };
+        public virtual event EventHandler<ActivationEventArgs> Activated = delegate { };
 
         /// <summary>
-        ///   Raised before deactivation.
+        /// Raised before deactivation.
         /// </summary>
-        public event EventHandler<DeactivationEventArgs> AttemptingDeactivation = delegate { };
+        public virtual event EventHandler<DeactivationEventArgs> AttemptingDeactivation = delegate { };
 
         /// <summary>
-        ///   Raised after deactivation.
+        /// Raised after deactivation.
         /// </summary>
-        public event EventHandler<DeactivationEventArgs> Deactivated = delegate { };
+        public virtual event EventHandler<DeactivationEventArgs> Deactivated = delegate { };
 
         void IActivate.Activate()
         {
@@ -105,19 +107,23 @@ namespace Caliburn.Micro.ReactiveUI
             Log.Info("Activating {0}.", this);
             OnActivate();
 
-            Activated(this, new ActivationEventArgs
+            var handler = Activated;
+            if (handler != null)
             {
-                WasInitialized = initialized
-            });
+                handler(this, new ActivationEventArgs
+                {
+                    WasInitialized = initialized
+                });
+            }
         }
 
         /// <summary>
-        ///   Called when initializing.
+        /// Called when initializing.
         /// </summary>
         protected virtual void OnInitialize() { }
 
         /// <summary>
-        ///   Called when activating.
+        /// Called when activating.
         /// </summary>
         protected virtual void OnActivate() { }
 
@@ -125,19 +131,27 @@ namespace Caliburn.Micro.ReactiveUI
         {
             if (IsActive || (IsInitialized && close))
             {
-                AttemptingDeactivation(this, new DeactivationEventArgs
+                var attemptingDeactivationHandler = AttemptingDeactivation;
+                if (attemptingDeactivationHandler != null)
                 {
-                    WasClosed = close
-                });
+                    attemptingDeactivationHandler(this, new DeactivationEventArgs
+                    {
+                        WasClosed = close
+                    });
+                }
 
                 IsActive = false;
                 Log.Info("Deactivating {0}.", this);
                 OnDeactivate(close);
 
-                Deactivated(this, new DeactivationEventArgs
+                var deactivatedHandler = Deactivated;
+                if (deactivatedHandler != null)
                 {
-                    WasClosed = close
-                });
+                    deactivatedHandler(this, new DeactivationEventArgs
+                    {
+                        WasClosed = close
+                    });
+                }
 
                 if (close)
                 {
@@ -148,15 +162,15 @@ namespace Caliburn.Micro.ReactiveUI
         }
 
         /// <summary>
-        ///   Called when deactivating.
+        /// Called when deactivating.
         /// </summary>
-        /// <param name = "close">Inidicates whether this instance will be closed.</param>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
         protected virtual void OnDeactivate(bool close) { }
 
         /// <summary>
-        ///   Called to check whether or not this instance can close.
+        /// Called to check whether or not this instance can close.
         /// </summary>
-        /// <param name = "callback">The implementor calls this action with the result of the close check.</param>
+        /// <param name="callback">The implementor calls this action with the result of the close check.</param>
         public virtual void CanClose(Action<bool> callback)
         {
             callback(true);
